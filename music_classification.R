@@ -1,4 +1,5 @@
-remove.packages("devtools")
+#remove.packages("devtools")
+#https://medium.com/@eternal.student/rock-or-rap-classifying-music-genres-in-r-fcf8ab4923b3
 library(dplyr)
 library(caTools)
 library(caret)

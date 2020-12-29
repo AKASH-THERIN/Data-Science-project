@@ -1,0 +1,780 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={R Notebook},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{R Notebook}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+This is an \href{http://rmarkdown.rstudio.com}{R Markdown} Notebook.
+When you execute code within the notebook, the results appear beneath
+the code.
+
+Try executing this chunk by clicking the \emph{Run} button within the
+chunk or by placing your cursor inside it and pressing
+\emph{Ctrl+Shift+Enter}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(cars)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{notebook1_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+Add a new chunk by clicking the \emph{Insert Chunk} button on the
+toolbar or by pressing \emph{Ctrl+Alt+I}.
+
+When you save the notebook, an HTML file containing the code and output
+will be saved alongside it (click the \emph{Preview} button or press
+\emph{Ctrl+Shift+K} to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the
+editor. Consequently, unlike \emph{Knit}, \emph{Preview} does not run
+any R code chunks. Instead, the output of the chunk when it was last run
+in the editor is displayed.
+
+\#----------------------------------------
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.2     v purrr   0.3.4
+## v tibble  3.0.4     v dplyr   1.0.2
+## v tidyr   1.1.2     v stringr 1.4.0
+## v readr   1.4.0     v forcats 0.5.0
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(recommenderlab)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: Matrix
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'Matrix'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:tidyr':
+## 
+##     expand, pack, unpack
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: arules
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'arules'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     recode
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     abbreviate, write
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: proxy
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'proxy'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:Matrix':
+## 
+##     as.matrix
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     as.dist, dist
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:base':
+## 
+##     as.matrix
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: registry
+\end{verbatim}
+
+\begin{verbatim}
+## Registered S3 methods overwritten by 'registry':
+##   method               from 
+##   print.registry_field proxy
+##   print.registry_entry proxy
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{polls <-}\StringTok{ }\NormalTok{readr}\OperatorTok{::}\KeywordTok{read_csv}\NormalTok{(}\StringTok{'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-04-14/polls.csv'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   rank = col_double(),
+##   title = col_character(),
+##   artist = col_character(),
+##   gender = col_character(),
+##   year = col_double(),
+##   critic_name = col_character(),
+##   critic_rols = col_character(),
+##   critic_country = col_character(),
+##   critic_country2 = col_character()
+## )
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rankings <-}\StringTok{ }\NormalTok{readr}\OperatorTok{::}\KeywordTok{read_csv}\NormalTok{(}\StringTok{'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-04-14/rankings.csv'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   ID = col_double(),
+##   title = col_character(),
+##   artist = col_character(),
+##   year = col_double(),
+##   gender = col_character(),
+##   points = col_double(),
+##   n = col_double(),
+##   n1 = col_double(),
+##   n2 = col_double(),
+##   n3 = col_double(),
+##   n4 = col_double(),
+##   n5 = col_double()
+## )
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{polls}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 535 x 9
+##     rank title artist gender  year critic_name critic_rols critic_country
+##    <dbl> <chr> <chr>  <chr>  <dbl> <chr>       <chr>       <chr>         
+##  1     1 Term~ Publi~ male    1998 Joseph Aba~ Fat Beats   US            
+##  2     2 4th ~ Gza f~ male    1995 Joseph Aba~ Fat Beats   US            
+##  3     3 Pete~ Run D~ male    1986 Joseph Aba~ Fat Beats   US            
+##  4     4 Play~ GLOBE~ male    2001 Joseph Aba~ Fat Beats   US            
+##  5     5 Time~ O.C.   male    1994 Joseph Aba~ Fat Beats   US            
+##  6     1 Play~ Slum ~ male    1997 Biba Adams  Critic      US            
+##  7     2 Self~ Stop ~ mixed   1989 Biba Adams  Critic      US            
+##  8     3 Push~ Salt-~ female  1986 Biba Adams  Critic      US            
+##  9     4 Ambi~ 2Pac   male    1996 Biba Adams  Critic      US            
+## 10     5 Big ~ JAY-Z~ male    1999 Biba Adams  Critic      US            
+## # ... with 525 more rows, and 1 more variable: critic_country2 <chr>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rankings}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 311 x 12
+##       ID title   artist   year gender points     n    n1    n2    n3    n4    n5
+##    <dbl> <chr>   <chr>   <dbl> <chr>   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+##  1     1 Juicy   The No~  1994 male      140    18     9     3     3     1     2
+##  2     2 Fight ~ Public~  1989 male      100    11     7     3     1     0     0
+##  3     3 Shook ~ Mobb D~  1995 male       94    13     4     5     1     1     2
+##  4     4 The Me~ Grandm~  1982 male       90    14     5     3     1     0     5
+##  5     5 Nuthin~ Dr Dre~  1992 male       84    14     2     4     2     4     2
+##  6     6 C.R.E.~ Wu-Tan~  1993 male       62    10     3     1     1     4     1
+##  7     7 93 ’Ti~ Souls ~  1993 male       50     7     2     2     2     0     1
+##  8     8 Passin~ The Ph~  1992 male       48     6     3     2     0     0     1
+##  9     9 N.Y. S~ Nas      1994 male       46     7     1     3     1     1     1
+## 10    10 Dear M~ 2Pac     1995 male       42     6     2     1     1     2     0
+## # ... with 301 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{polls }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{count}\NormalTok{(title, }\DataTypeTok{sort =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 309 x 2
+##    title                       n
+##    <chr>                   <int>
+##  1 Juicy                      18
+##  2 Nuthin’ But A ‘G’ Thang    14
+##  3 The Message                14
+##  4 Shook Ones (Part II)       13
+##  5 Fight The Power            11
+##  6 C.R.E.A.M.                 10
+##  7 93 ’Til Infinity            7
+##  8 N.Y. State Of Mind          7
+##  9 Dear Mama                   6
+## 10 Jesus Walks                 6
+## # ... with 299 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#getting golden year}
+\NormalTok{polls }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{count}\NormalTok{(year) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{decade =} \KeywordTok{floor}\NormalTok{(year }\OperatorTok{/}\StringTok{ }\DecValTok{10}\NormalTok{)}\OperatorTok{*}\DecValTok{10}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{decade =} \KeywordTok{as.factor}\NormalTok{(decade)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ n, }\DataTypeTok{fill =}\NormalTok{ decade)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_col}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{notebook1_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#The golden-age of rap is the 1990s }
+\NormalTok{polls }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{count}\NormalTok{(year) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{decade =} \KeywordTok{floor}\NormalTok{(year }\OperatorTok{/}\StringTok{ }\DecValTok{10}\NormalTok{)}\OperatorTok{*}\DecValTok{10}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{decade =} \KeywordTok{as.factor}\NormalTok{(decade)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ decade, }\DataTypeTok{y =}\NormalTok{ n, }\DataTypeTok{fill =}\NormalTok{ decade)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_col}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{notebook1_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#great artist}
+\NormalTok{polls }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{count}\NormalTok{(artist, }\DataTypeTok{sort =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ n)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_density}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{notebook1_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#artist plot}
+\NormalTok{rankings }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(artist, n, n1, n2, n3, n4, n5) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(artist) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise_all}\NormalTok{(sum) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{str_detect}\NormalTok{(artist, }\StringTok{"ft."}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ n1, }\DataTypeTok{y =}\NormalTok{ n5)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_jitter}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{notebook1_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#overview}
+\NormalTok{rankings }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(artist, n, n1, n2, n3, n4, n5) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(artist) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise_all}\NormalTok{(sum) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{str_detect}\NormalTok{(artist, }\StringTok{"ft."}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(n1)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{slice}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 7
+##   artist                                   n    n1    n2    n3    n4    n5
+##   <chr>                                <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+## 1 The Notorious B.I.G.                    22    10     3     4     2     3
+## 2 Public Enemy                            18     9     4     2     2     1
+## 3 Wu-Tang Clan                            20     6     1     3     7     3
+## 4 Grandmaster Flash & The Furious Five    14     5     3     1     0     5
+## 5 2Pac                                    13     4     3     1     4     1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rankings }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(artist, n, n1, n2, n3, n4, n5) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(artist) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise_all}\NormalTok{(sum) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{str_detect}\NormalTok{(artist, }\StringTok{"ft."}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(n5)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{slice}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 7
+##   artist                                   n    n1    n2    n3    n4    n5
+##   <chr>                                <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+## 1 Kendrick Lamar                          15     1     3     4     1     6
+## 2 Grandmaster Flash & The Furious Five    14     5     3     1     0     5
+## 3 JAY-Z                                   18     2     5     3     4     4
+## 4 Kanye West                              14     1     1     4     4     4
+## 5 OutKast                                 17     2     4     3     4     4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#15% of the top songs were voted by only one country }
+\CommentTok{#Home town / country bias? }
+\NormalTok{polls }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{count}\NormalTok{(title, critic_country, }\DataTypeTok{name =} \StringTok{"song_nom"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{add_count}\NormalTok{(title, }\DataTypeTok{name =} \StringTok{"number_of_countries"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(number_of_countries }\OperatorTok{==}\StringTok{ }\DecValTok{1} \OperatorTok{&}\StringTok{ }\NormalTok{critic_country }\OperatorTok{!=}\StringTok{ "US"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{nrow}\NormalTok{() }\OperatorTok{/}\StringTok{ }\KeywordTok{nrow}\NormalTok{(polls)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1551402
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{polls }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{count}\NormalTok{(title, critic_country, }\DataTypeTok{name =} \StringTok{"song_nom_country"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{add_count}\NormalTok{(title, }\DataTypeTok{name =} \StringTok{"number_of_countries"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(number_of_countries }\OperatorTok{!=}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{number_of_countries) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}\DataTypeTok{names_from =} \StringTok{"critic_country"}\NormalTok{, }\DataTypeTok{values_from =} \StringTok{"song_nom_country"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 52 x 14
+##    title `South Africa`    US Germany India Japan    UK `New Zealand`
+##    <chr>          <int> <int>   <int> <int> <int> <int>         <int>
+##  1 93 ’~              1     6      NA    NA    NA    NA            NA
+##  2 All ~             NA     2       1    NA    NA    NA            NA
+##  3 Alri~             NA     4      NA     1    NA    NA            NA
+##  4 B.O.~             NA     3      NA    NA     1    NA            NA
+##  5 Bloo~             NA    NA       1    NA    NA     1            NA
+##  6 Boda~             NA     1      NA    NA    NA    NA             1
+##  7 Brin~             NA     1      NA     1    NA    NA            NA
+##  8 C.R.~             NA     7      NA    NA    NA     1             1
+##  9 Cali~             NA     1       1    NA    NA    NA            NA
+## 10 Can’~             NA     1       1    NA    NA    NA            NA
+## # ... with 42 more rows, and 6 more variables: `Russian Federation` <int>,
+## #   China <int>, Nigeria <int>, Kenya <int>, Canada <int>, Colombia <int>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(recommenderlab)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rap_matrix <-}\StringTok{ }\NormalTok{polls }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(critic_name, title) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{n =} \DecValTok{1}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(title) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}\DataTypeTok{names_from =} \StringTok{"title"}\NormalTok{, }\DataTypeTok{values_from =} \StringTok{"n"}\NormalTok{, }\DataTypeTok{values_fill =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{n =} \DecValTok{0}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{critic_name) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{as.matrix}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{as}\NormalTok{(}\StringTok{"binaryRatingMatrix"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{training_schema <-}\StringTok{ }\KeywordTok{evaluationScheme}\NormalTok{(rap_matrix, }\DataTypeTok{method =} \StringTok{"split"}\NormalTok{, }\DataTypeTok{train =} \FloatTok{.8}\NormalTok{, }\DataTypeTok{given =} \DecValTok{-1}\NormalTok{)}
+\NormalTok{training_schema}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Evaluation scheme using all-but-1 items
+## Method: 'split' with 1 run(s).
+## Training set proportion: 0.800
+## Good ratings: NA
+## Data set: 107 x 309 rating matrix of class 'binaryRatingMatrix' with 535 ratings.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{UBCF_Model <-}\StringTok{ }\KeywordTok{evaluate}\NormalTok{(training_schema, }\DataTypeTok{method =} \StringTok{"UBCF"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"topNList"}\NormalTok{, }\DataTypeTok{n =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## UBCF run fold/sample [model time/prediction time]
+##   1  [0.01sec/0.35sec]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{IBCF_Model <-}\StringTok{ }\KeywordTok{evaluate}\NormalTok{(training_schema, }\DataTypeTok{method =} \StringTok{"IBCF"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"topNList"}\NormalTok{, }\DataTypeTok{n =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## IBCF run fold/sample [model time/prediction time]
+##   1  [0.46sec/0.15sec]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{UBCF_Model }\OperatorTok{%>%}\StringTok{ }\KeywordTok{avg}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   TP       FP FN       TN precision recall TPR        FPR
+## 5  0 3.818182  1 305.1818         0      0   0 0.01235658
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{IBCF_Model }\OperatorTok{%>%}\StringTok{ }\KeywordTok{avg}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as_tibble}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 8
+##      TP    FP    FN    TN precision recall   TPR    FPR
+##   <dbl> <dbl> <dbl> <dbl>     <dbl>  <dbl> <dbl>  <dbl>
+## 1     0     5     1   304         0      0     0 0.0162
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tune_engines <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(schema, parameters)\{}
+  
+\NormalTok{  UBCF_Model <-}\StringTok{ }\KeywordTok{evaluate}\NormalTok{(schema, }\DataTypeTok{method =} \StringTok{"UBCF"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"topNList"}\NormalTok{, }\DataTypeTok{n =} \DecValTok{5}\NormalTok{, }\DataTypeTok{param =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{nn =}\NormalTok{ parameters))}
+\NormalTok{  IBCF_Model <-}\StringTok{ }\KeywordTok{evaluate}\NormalTok{(schema, }\DataTypeTok{method =} \StringTok{"IBCF"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"topNList"}\NormalTok{, }\DataTypeTok{n =} \DecValTok{5}\NormalTok{, }\DataTypeTok{param =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{k =}\NormalTok{ parameters))}
+  
+  
+\NormalTok{  UBCF_Model }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{avg}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{as_tibble}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{model =} \StringTok{"UBCF"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{rbind}\NormalTok{(IBCF_Model }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{avg}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{as_tibble}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{model =} \StringTok{"IBCF"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{return}\NormalTok{()}
+  
+  
+
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tune_grid <-}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{parameters =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{25}\NormalTok{))}
+
+
+\NormalTok{history <-}\StringTok{ }\NormalTok{tune_grid }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{results =} \KeywordTok{map}\NormalTok{(parameters, }\OperatorTok{~}\KeywordTok{tune_engines}\NormalTok{(training_schema, .x))) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{unnest}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## UBCF run fold/sample [model time/prediction time]
+##   1  [0sec/0.22sec] 
+## IBCF run fold/sample [model time/prediction time]
+##   1  [0.08sec/0.01sec] 
+## UBCF run fold/sample [model time/prediction time]
+##   1  [0sec/0.48sec] 
+## IBCF run fold/sample [model time/prediction time]
+##   1  [0.05sec/0.02sec] 
+## UBCF run fold/sample [model time/prediction time]
+##   1  [0sec/0.14sec] 
+## IBCF run fold/sample [model time/prediction time]
+##   1  [0.08sec/0sec] 
+## UBCF run fold/sample [model time/prediction time]
+##   1  [0sec/0.14sec] 
+## IBCF run fold/sample [model time/prediction time]
+##   1  [0.05sec/0.02sec] 
+## UBCF run fold/sample [model time/prediction time]
+##   1  [0sec/0.11sec] 
+## IBCF run fold/sample [model time/prediction time]
+##   1  [0.07sec/0sec] 
+## UBCF run fold/sample [model time/prediction time]
+##   1  [0sec/0.14sec] 
+## IBCF run fold/sample [model time/prediction time]
+##   1  [0.07sec/0sec] 
+## UBCF run fold/sample [model time/prediction time]
+##   1  [0sec/0.13sec] 
+## IBCF run fold/sample [model time/prediction time]
+##   1  [0.07sec/0.01sec]
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: `cols` is now required when using unnest().
+## Please use `cols = c(results)`
+\end{verbatim}
+
+\#taking neighbours
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Use 5 nearest neighbros}
+\NormalTok{history }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ parameters, }\DataTypeTok{y =}\NormalTok{ TPR, }\DataTypeTok{fill =}\NormalTok{ model, }\DataTypeTok{label =}\NormalTok{ parameters)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_col}\NormalTok{(}\DataTypeTok{position =} \StringTok{"dodge"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_text}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ parameters, }\DataTypeTok{y =}\NormalTok{ TPR))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{notebook1_files/figure-latex/unnamed-chunk-24-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{UBCF_Final_model <-}\StringTok{ }\KeywordTok{Recommender}\NormalTok{(}\KeywordTok{getData}\NormalTok{(training_schema, }\StringTok{"train"}\NormalTok{), }\StringTok{"UBCF"}\NormalTok{, }\DataTypeTok{param =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{nn =} \DecValTok{5}\NormalTok{))}
+
+
+\NormalTok{UBCF_Final_model}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Recommender of type 'UBCF' for 'binaryRatingMatrix' 
+## learned using 85 users.
+\end{verbatim}
+
+\#predictions
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{predictions <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(UBCF_Final_model, }\KeywordTok{getData}\NormalTok{(training_schema, }\StringTok{"known"}\NormalTok{), }\DataTypeTok{type =} \StringTok{"topNList"}\NormalTok{)}
+\KeywordTok{calcPredictionAccuracy}\NormalTok{(predictions, }\KeywordTok{getData}\NormalTok{(training_schema,}\StringTok{"unknown"}\NormalTok{), }\DataTypeTok{given =} \DecValTok{-1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           TP           FP           FN           TN    precision       recall 
+##   0.13636364   7.04545455   0.86363636 301.95454545   0.01764706   0.13636364 
+##          TPR          FPR 
+##   0.13636364   0.02280082
+\end{verbatim}
+
+\#engine ready now ..
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rec_engine <-}\StringTok{ }\KeywordTok{Recommender}\NormalTok{(rap_matrix, }\StringTok{"UBCF"}\NormalTok{, }\DataTypeTok{param =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{nn =} \DecValTok{5}\NormalTok{))}
+\NormalTok{rec_engine}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Recommender of type 'UBCF' for 'binaryRatingMatrix' 
+## learned using 107 users.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{polls }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(}\KeywordTok{str_detect}\NormalTok{(artist, }\StringTok{"2Pac"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{distinct}\NormalTok{(title) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{arrange}\NormalTok{(title)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 8 x 1
+##   title               
+##   <chr>               
+## 1 Ambitionz Az A Ridah
+## 2 Brenda’s Got A Baby 
+## 3 California Love     
+## 4 Changes             
+## 5 Dear Mama           
+## 6 Hit ’Em Up          
+## 7 I Get Around        
+## 8 So Many Tears
+\end{verbatim}
+
+\#my seclections
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{akash_songs <-}\StringTok{ }\NormalTok{polls }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(title) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{distinct}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(title) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(title }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"All Of The Lights"}\NormalTok{, }\StringTok{"Alright"}\NormalTok{, }\StringTok{"Bitch Don’t Kill My Vibe"}\NormalTok{, }\StringTok{"m.A.A.d. city"}\NormalTok{, }\StringTok{"Changes"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{  }
+\StringTok{  }\KeywordTok{rbind}\NormalTok{(polls }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(title) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{distinct}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{count}\NormalTok{(title) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ n }\DecValTok{-1}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}\DataTypeTok{names_from =} \StringTok{"title"}\NormalTok{, }\DataTypeTok{values_from =} \StringTok{"n"}\NormalTok{, }\DataTypeTok{values_fill =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{n =} \DecValTok{0}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{as.matrix}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{as}\NormalTok{(}\StringTok{"binaryRatingMatrix"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rec_engine}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Recommender of type 'UBCF' for 'binaryRatingMatrix' 
+## learned using 107 users.
+\end{verbatim}
+
+\#final predictions
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{predict}\NormalTok{(rec_engine, akash_songs) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as}\NormalTok{(}\StringTok{"list"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                    X1
+## 1                             1 Train
+## 2    Black Steel In The Hour Of Chaos
+## 3                        Bodak Yellow
+## 4                     Country Grammar
+## 5           Da Mystery Of Chessboxin'
+## 6                        Day 'N' Nite
+## 7                Doo Wop (That Thing)
+## 8  Double Trouble At The Amphitheatre
+## 9                              Get By
+## 10                    Get Ur Freak On
+\end{verbatim}
+
+\end{document}
